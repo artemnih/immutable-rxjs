@@ -1,0 +1,27 @@
+{
+  "name": "immutable-rxjs",
+  "version": "1.0.0",
+  "description": "Immutabje.js meets Rxjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artemnih/immutable-rxjs.git"
+  },
+  "author": "artemnih",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/artemnih/immutable-rxjs/issues"
+  },
+  "homepage": "https://github.com/artemnih/immutable-rxjs#readme",
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "immutable": "^4.0.0-rc.12",
+    "rxjs": "^6.5.5"
+  }
+}
