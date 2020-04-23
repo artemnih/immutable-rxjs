@@ -4,8 +4,8 @@ import { fromJS, Record } from 'immutable';
 /**
  * A variant of Subject that requires an initial value and emits its current
  * value whenever it is subscribed to.
- *
- * @class BehaviorSubject<T>
+ * All values are immutable
+ * @class ImmutableBehaviorSubject<T>
  */
 export class ImmutableBehaviorSubject<T> extends Subject<T> {
     private _value?: Record<T> | T;
