@@ -10,6 +10,7 @@ import { fromJS, Record } from 'immutable';
 export class ImmutableBehaviorSubject<T> extends Subject<T> {
     private _value?: Record<T> | T;
     private _type?: "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
+    
     constructor(value: T) {
         super();
         this.writeValue(value);
