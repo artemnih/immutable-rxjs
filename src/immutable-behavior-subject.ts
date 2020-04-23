@@ -25,7 +25,7 @@ export class ImmutableBehaviorSubject<T> extends Subject<T> {
     }
 
     private _saveValue(value: T) {
-        if ((value !== null && value !== undefined) && typeof value=== 'object') {
+        if ((value !== null && value !== undefined) && typeof value === 'object') {
             this._value = fromJS(value);
         }
         else {
