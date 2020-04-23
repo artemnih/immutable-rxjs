@@ -9,26 +9,26 @@ import { fromJS, Record } from 'immutable';
  */
 export class ImmutableBehaviorSubject<T> extends Subject<T> {
     private _value?: Record<T> | T;
-    private _type?: "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
     
     constructor(value: T) {
         super();
-        this.writeValue(value);
+        this._saveValue(value);
     }
 
-    private readValue() {
-        if (this._type && this._type === 'object' && this._value) {
+    private _getValue() {
+        if ((this._value !== null && this._value !== undefined) && typeof this._value === 'object') {
             return (this._value as Record<T>).toJS();
-        } else {
+        }
+        else {
             return this._value as T;
         }
     }
 
-    private writeValue(value: T) {
-        this._type = typeof value;
-        if (this._type === 'object' && value) {
+    private _saveValue(value: T) {
+        if ((value !== null && value !== undefined) && typeof value=== 'object') {
             this._value = fromJS(value);
-        } else {
+        }
+        else {
             this._value = value;
         }
     }
@@ -41,7 +41,7 @@ export class ImmutableBehaviorSubject<T> extends Subject<T> {
     _subscribe(subscriber: Subscriber<T>): Subscription {
         const subscription = super._subscribe(subscriber);
         if (subscription && !(<SubscriptionLike>subscription).closed) {
-            subscriber.next(this.readValue());
+            subscriber.next(this._getValue());
         }
         return subscription;
     }
@@ -52,12 +52,13 @@ export class ImmutableBehaviorSubject<T> extends Subject<T> {
         } else if (this.closed) {
             throw new ObjectUnsubscribedError();
         } else {
-            return this.readValue();
+            return this._getValue();
         }
     }
 
     next(value: T): void {
-        this.writeValue(value)
-        super.next(this._value as any);
+        this._saveValue(value)
+        super.next(value);
     }
+
 }
