@@ -9,15 +9,14 @@ import { fromJS, Record } from 'immutable';
  */
 export class ImmutableBehaviorSubject<T> extends Subject<T> {
     private _value?: Record<T> | T;
-    private _type: "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
+    private _type?: "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
     constructor(value: T) {
         super();
-        this._type = typeof value;
         this.writeValue(value);
     }
 
     private readValue() {
-        if (this._type === 'object' && this._value) {
+        if (this._type && this._type === 'object' && this._value) {
             return (this._value as Record<T>).toJS();
         } else {
             return this._value as T;
@@ -25,6 +24,7 @@ export class ImmutableBehaviorSubject<T> extends Subject<T> {
     }
 
     private writeValue(value: T) {
+        this._type = typeof value;
         if (this._type === 'object' && value) {
             this._value = fromJS(value);
         } else {
