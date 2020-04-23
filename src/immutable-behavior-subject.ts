@@ -12,7 +12,6 @@ export class ImmutableBehaviorSubject<T> extends Subject<T> {
 
     constructor(value: T) {
         super();
-        console.log('local 123')
         this._saveValue(value);
     }
 
