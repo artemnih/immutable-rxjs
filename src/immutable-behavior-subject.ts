@@ -9,9 +9,10 @@ import { fromJS, Record } from 'immutable';
  */
 export class ImmutableBehaviorSubject<T> extends Subject<T> {
     private _value?: Record<T> | T;
-    
+
     constructor(value: T) {
         super();
+        console.log('local 123')
         this._saveValue(value);
     }
 
@@ -56,9 +57,21 @@ export class ImmutableBehaviorSubject<T> extends Subject<T> {
         }
     }
 
-    next(value: T): void {
-        this._saveValue(value)
-        super.next(value);
+    next(value: T) {
+        if (this.closed) {
+            throw new ObjectUnsubscribedError();
+        }
+        if (!this.isStopped) {
+            this._saveValue(value);
+
+            const { observers } = this;
+            const len = observers.length;
+            const copy = observers.slice();
+            for (let i = 0; i < len; i++) {
+                const newVal = this._getValue();
+                copy[i].next(newVal!);
+            }
+        }
     }
 
 }
