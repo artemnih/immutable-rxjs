@@ -3,6 +3,9 @@ Immutabje.js meets Rxjs
 
 `npm i --save immutable-rxjs`
 
+Install peer dependency
+`npm i --save-dev immutable`
+
 ## ImmutableBehaviorSubject
 ```Typescript
 import { ImmutableBehaviorSubject } from 'immutable-rxjs';
